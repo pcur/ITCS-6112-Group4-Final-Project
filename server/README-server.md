@@ -47,4 +47,4 @@ Course Management (courses.js) - Allows for creation and modifcation of courses 
   - POST: /courses - creates new room
   - PATCH: /courses/:courseId/preferences - modify course preferences
   - PATCH: /courses/:courseId - updates course details
-  - DELETE: /courses/:courseId - deletes course+
+  - DELETE: /courses/:courseId - deletes course
