@@ -25,13 +25,14 @@ function AppRoutes() {
         <Route path="/rooms" element={<RoomList />} />
         <Route path="/rooms/new" element={<CreateRoom />} />
         <Route path="/rooms/:roomId" element={<RoomDetails />} />
-        <Route path="/courses" element={<CourseList />} />
         <Route path="/courses/new" element={<CreateCourse />} />
         <Route path="/courses/:courseId" element={<CourseDetails />} />
         <Route path="/students" element={<StudentList />} />
         <Route path="/students/:studentId" element={<StudentDetails />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} />
         {/* Add more routes here */}
       </Routes>
     </Router>
