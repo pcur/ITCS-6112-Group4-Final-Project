@@ -10,6 +10,7 @@ import StudentList from './pages/StudentList';
 import StudentDetails from './pages/StudentDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
+import Register from './pages/Register'
 
 
 
