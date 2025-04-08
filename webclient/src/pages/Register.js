@@ -1,9 +1,10 @@
-// pages/Login.jsx
+// pages/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,25 +13,40 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setError('');
     setSuccess(false);
 
     try {
-      const response = await axios.post('/auth/login', { email, password });
-      if (response.status === 200) {
+      const response = await axios.post('/auth/register', {
+        username,
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
         setSuccess(true);
-        // Redirect to home/dashboard after successful login
-        navigate('/admin');
+        setTimeout(() => navigate('/login'), 2000);
       }
     } catch (err) {
-      setError('Login failed. Please check your credentials.');
+      setError('Registration failed. Please try again.');
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label htmlFor="email">Email:</label>
           <input
@@ -52,19 +68,11 @@ const Login = () => {
           />
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {success && <p style={{ color: 'green' }}>Login successful!</p>}
-        <button type="submit">Login</button>
+        {success && <p style={{ color: 'green' }}>Registration successful!</p>}
+        <button type="submit">Register</button>
       </form>
-      <div>
-        <p>
-          Don't have an account?{' '}
-          <a href="/register" style={{ color: 'blue' }}>
-            Register here
-          </a>
-        </p>
-      </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
