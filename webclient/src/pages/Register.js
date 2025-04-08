@@ -1,11 +1,11 @@
 // pages/Register.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios'; // Import the custom axios instance
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../api/users';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -20,7 +20,7 @@ const Register = () => {
 
     try {
       const response = await axios.post('/auth/register', {
-        username,
+        name,
         email,
         password,
       });
@@ -39,14 +39,15 @@ const Register = () => {
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+    />
+
         </div>
         <div>
           <label htmlFor="email">Email:</label>

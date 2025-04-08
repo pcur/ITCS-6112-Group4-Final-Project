@@ -1,6 +1,6 @@
 // pages/Login.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios'; // Import the custom axios instance
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
