@@ -1,6 +1,23 @@
 # Outline
 Server is using a modular architecture, REST API based interaction between modules. 
 
+## Installation
+To install and run, you first must add your mongodb/atlas connection uri into a .env file. After creating .env in the "server" directory, add the line,
+
+```.env
+MONGO_URI = <your_connection_string>
+```
+and then run:
+```shell
+npm install
+node server.js
+```
+If running correctly, should output a warning followed by 
+```
+Server connected to port 5000
+Connected to MongoDB
+```
+
 ## Mongo Database Collection Structure
 Collections: 
   users (id, name, email, role, student_id, enrolled_courses)
