@@ -23,11 +23,11 @@ exports.getRoomById = async (req, res) => {
 
 // POST: create a new room
 exports.createRoom = async (req, res) => {
-  const { name, capacity, building, resources } = req.body;
+  const { roomNumber, capacity, building, resources } = req.body;
 
   try {
     const newRoom = new Room({
-      name,
+      roomNumber: roomNumber,
       capacity,
       building,
       resources
@@ -42,12 +42,12 @@ exports.createRoom = async (req, res) => {
 
 // PATCH: update room details
 exports.updateRoom = async (req, res) => {
-  const { name, capacity, building, resources } = req.body;
+  const { roomNumber, capacity, building, resources } = req.body;
 
   try {
     const updatedRoom = await Room.findByIdAndUpdate(
       req.params.roomId,
-      { name, capacity, building, resources },
+      { roomNumber, capacity, building, resources },
       { new: true }
     );
 
