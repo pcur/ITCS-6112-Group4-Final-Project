@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getStudent, getStudentEnrollments, enrollStudent, dropStudent } from '../api/students';
 import { getAllCourses } from '../api/courses';
 import { useParams } from 'react-router-dom';
+import DashboardButton from '../components/dashboardButton';
 
 function StudentDetails() {
   const { studentId } = useParams();
@@ -63,6 +64,7 @@ function StudentDetails() {
           </li>
         ))}
       </ul>
+      <DashboardButton />
     </div>
   );
 }

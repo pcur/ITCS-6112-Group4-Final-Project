@@ -4,6 +4,7 @@ const courseSchema = new mongoose.Schema({
   name: String,
   code: String,
   capacity: Number,
+  professor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   enrolledStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   preferredBuildings: [String],
   preferredTimes: [String],

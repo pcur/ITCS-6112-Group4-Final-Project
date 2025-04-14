@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllStudents } from '../api/students';
 import { useNavigate } from 'react-router-dom';
+import DashboardButton from '../components/dashboardButton';
 
 function StudentList() {
   const [students, setStudents] = useState([]);
@@ -25,6 +26,7 @@ function StudentList() {
           </li>
         ))}
       </ul>
+      <DashboardButton />
     </div>
   );
 }
