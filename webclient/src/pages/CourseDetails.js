@@ -8,6 +8,7 @@ import {
 } from '../api/courses';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DashboardButton from '../components/dashboardButton';
 
 function CourseDetails() {
   const { courseId } = useParams();
@@ -102,6 +103,8 @@ function CourseDetails() {
           </li>
         ))}
       </ul>
+
+      <DashboardButton />
     </div>
   );
 }

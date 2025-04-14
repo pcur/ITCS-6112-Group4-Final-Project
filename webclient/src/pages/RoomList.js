@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllRooms, deleteRoom } from '../api/rooms';
 import { useNavigate } from 'react-router-dom';
+import DashboardButton from '../components/dashboardButton';
 
 function RoomList() {
   const [rooms, setRooms] = useState([]);
@@ -33,6 +34,7 @@ function RoomList() {
           </li>
         ))}
       </ul>
+      <DashboardButton />
     </div>
   );
 }

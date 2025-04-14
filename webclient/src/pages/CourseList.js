@@ -3,6 +3,7 @@ import { getAllCourses, deleteCourse } from '../api/courses';
 import { enrollStudent } from '../api/students';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DashboardButton from '../components/dashboardButton';
 
 function CourseList() {
   const [courses, setCourses] = useState([]);
@@ -58,6 +59,9 @@ function CourseList() {
           </li>
         ))}
       </ul>
+
+      <DashboardButton />
+      
     </div>
   );
 }
