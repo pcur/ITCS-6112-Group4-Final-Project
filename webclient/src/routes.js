@@ -11,6 +11,8 @@ import StudentDetails from './pages/StudentDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register'
+import InstructorDashboard from './pages/InstructorDashboard';
+import StudentDashboard from './pages/StudentDashboard';
 
 
 
@@ -34,6 +36,8 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
+        <Route path="/instructor" element={<InstructorDashboard />} />
+        <Route path="/student" element={<StudentDashboard />} />
         {/* Add more routes here */}
       </Routes>
     </Router>
