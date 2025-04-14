@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssignments, generateAssignments } from '../api/assignments';
 import { useNavigate } from 'react-router-dom';
-import DashboardButton from '../components/DashboardButton';
+import DashboardButton from '../components/dashboardButton';
 
 function AssignmentsPage() {
   const [assignments, setAssignments] = useState([]);
