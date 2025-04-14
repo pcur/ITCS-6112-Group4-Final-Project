@@ -2,16 +2,24 @@ const Assignment = require('../models/Assignment');
 const Course = require('../models/Course');
 const Room = require('../models/Room');
 
-// 🔧 Placeholder: generate auto-assignments
+// 🔧 Placeholder: Generate auto-assignments, prioritizing largest courses first
 exports.generateAssignments = async (req, res) => {
   try {
     const courses = await Course.find();
     const rooms = await Room.find();
     const assignments = [];
 
+    // Sort courses by capacity descending (largest first)
+    const sortedCourses = courses.sort((a, b) => b.capacity - a.capacity);
+
     // Simple matching: assign any available room with enough capacity
-    for (const course of courses) {
-      const room = rooms.find(r => r.capacity >= course.capacity);
+    const usedRoomIds = new Set(); // Prevent double-assigning rooms
+
+    for (const course of sortedCourses) {
+      const room = rooms.find(r => 
+        r.capacity >= course.capacity && !usedRoomIds.has(r._id.toString())
+      );
+
       if (room) {
         const assignment = new Assignment({
           course: course._id,
@@ -20,6 +28,9 @@ exports.generateAssignments = async (req, res) => {
         });
         await assignment.save();
         assignments.push(assignment);
+
+        // Mark room as used
+        usedRoomIds.add(room._id.toString());
 
         // Optionally update course with assigned room
         course.assignedRoom = room._id;
@@ -32,6 +43,7 @@ exports.generateAssignments = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // GET all assignments
 exports.getAllAssignments = async (req, res) => {
