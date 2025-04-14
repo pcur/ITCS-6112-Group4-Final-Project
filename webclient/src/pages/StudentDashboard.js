@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getCourseStudents } from '../api/courses'; // Assuming this API function exists
+import { getStudentEnrollments } from '../api/students';
 
 function StudentDashboard() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function StudentDashboard() {
 
   const fetchEnrollments = async () => {
     try {
-      const res = await getCourseStudents(user._id); // Assuming this endpoint returns courses the student is enrolled in
+      const res = await getStudentEnrollments(user._id);
       setEnrolledCourses(res.data);
     } catch (err) {
       console.error("Error fetching enrollments:", err);
@@ -18,7 +18,9 @@ function StudentDashboard() {
   };
 
   useEffect(() => {
-    fetchEnrollments();
+    if (user?._id) {
+      fetchEnrollments();
+    }
   }, [user]);
 
   return (
@@ -29,7 +31,6 @@ function StudentDashboard() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
         <button onClick={() => navigate('/courses')}>📚 View Available Courses</button>
 
-        {/* Display Enrolled Courses */}
         <div>
           <h3>My Enrollments</h3>
           {enrolledCourses.length > 0 ? (

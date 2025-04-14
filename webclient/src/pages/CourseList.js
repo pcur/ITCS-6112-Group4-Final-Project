@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { getAllCourses, deleteCourse } from '../api/courses';
+import { enrollStudent } from '../api/students';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function CourseList() {
   const [courses, setCourses] = useState([]);
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const fetchCourses = async () => {
     const res = await getAllCourses();
-    let allCourses = res.data;
-
-    if (user?.role === 'instructor') {
-      allCourses = allCourses.filter(
-        (course) => course.professor === user._id
-      );
-    }
-
-    setCourses(allCourses);
+    setCourses(res.data);
   };
 
   const handleDelete = async (id) => {
     await deleteCourse(id);
     fetchCourses();
+  };
+
+  const handleEnroll = async (courseId) => {
+    try {
+      await enrollStudent(user._id, courseId);
+      alert('Enrolled successfully!');
+    } catch (err) {
+      alert('Enrollment failed.');
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -34,8 +37,7 @@ function CourseList() {
     <div>
       <h2>Courses</h2>
 
-      {/* Admins & Instructors can create courses */}
-      {(user?.role === 'admin' || user?.role === 'instructor') && (
+      {user?.role !== 'student' && (
         <button onClick={() => navigate('/courses/new')}>+ Add Course</button>
       )}
 
@@ -44,13 +46,14 @@ function CourseList() {
           <li key={course._id}>
             {course.name} ({course.capacity} students)
 
-            <button onClick={() => navigate(`/courses/${course._id}`)}>
-              Details
-            </button>
+            <button onClick={() => navigate(`/courses/${course._id}`)}>Details</button>
 
-            {/* Only Admins can delete */}
             {user?.role === 'admin' && (
               <button onClick={() => handleDelete(course._id)}>Delete</button>
+            )}
+
+            {user?.role === 'student' && (
+              <button onClick={() => handleEnroll(course._id)}>Enroll</button>
             )}
           </li>
         ))}
