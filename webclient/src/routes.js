@@ -13,7 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register'
 import InstructorDashboard from './pages/InstructorDashboard';
 import StudentDashboard from './pages/StudentDashboard';
-
+import AssignmentsPage from './pages/AssignmentsPage';
 
 
 
@@ -38,6 +38,8 @@ function AppRoutes() {
         <Route path="/" element={<Login />} />
         <Route path="/instructor" element={<InstructorDashboard />} />
         <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/assignments" element={<AssignmentsPage />} />
+
         {/* Add more routes here */}
       </Routes>
     </Router>

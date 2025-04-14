@@ -34,11 +34,13 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    res.json({ message: 'Logged in successfully', user });
+    // ✅ Return just the user object
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // POST: Logout user (no session handling)
 exports.logoutUser = (req, res) => {

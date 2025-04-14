@@ -12,7 +12,6 @@ function AdminDashboard() {
         <button onClick={() => navigate('/courses')}>📚 Manage Courses</button>
         <button onClick={() => navigate('/rooms')}>🏫 Manage Rooms</button>
         <button onClick={() => navigate('/assignments')}>📌 View Room Assignments</button>
-        <button onClick={() => navigate('/assignments/generator')}>⚙️ Generate Room Assignments</button>
         <button onClick={() => navigate('/students')}>👩‍🎓 Manage Students</button>
       </div>
     </div>
