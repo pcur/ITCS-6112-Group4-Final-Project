@@ -20,15 +20,14 @@ function CourseDetails() {
   useEffect(() => {
     const fetchData = async () => {
       const courseRes = await getCourse(courseId);
-      const studentRes = await getCourseStudents(courseId);
-
       setCourse(courseRes.data);
-      setStudents(studentRes.data);
 
-      // Only fetch preferences if user is not a student
+      const prefRes = await getCoursePreferences(courseId);
+      setPreferences(prefRes.data);
+
       if (user?.role !== 'student') {
-        const prefRes = await getCoursePreferences(courseId);
-        setPreferences(prefRes.data);
+        const studentRes = await getCourseStudents(courseId);
+        setStudents(studentRes.data);
       }
     };
     fetchData();
@@ -53,30 +52,35 @@ function CourseDetails() {
   };
 
   return (
-    <div>
+    <div style={{ padding: '1rem' }}>
       <h2>Course Details</h2>
 
+      {/* Student View */}
       {user?.role === 'student' ? (
         <div>
           <p><strong>Name:</strong> {course.name}</p>
           <p><strong>Capacity:</strong> {course.capacity}</p>
+          <p><strong>Preferred Time:</strong> {preferences.preferredTime || 'N/A'}</p>
+          <p><strong>Assigned Room:</strong> {course.room || 'Not assigned'}</p>
         </div>
       ) : (
         <>
-          <input
-            name="name"
-            value={course.name || ''}
-            onChange={handleCourseChange}
-            placeholder="Course Name"
-          />
-          <input
-            name="capacity"
-            type="number"
-            value={course.capacity || ''}
-            onChange={handleCourseChange}
-            placeholder="Capacity"
-          />
-          <button onClick={handleUpdateCourse}>Update Course</button>
+          <div>
+            <input
+              name="name"
+              value={course.name || ''}
+              onChange={handleCourseChange}
+              placeholder="Course Name"
+            />
+            <input
+              name="capacity"
+              type="number"
+              value={course.capacity || ''}
+              onChange={handleCourseChange}
+              placeholder="Capacity"
+            />
+            <button onClick={handleUpdateCourse}>Update Course</button>
+          </div>
 
           <h3>Preferences</h3>
           <input
@@ -92,17 +96,19 @@ function CourseDetails() {
             placeholder="Preferred Time"
           />
           <button onClick={handleUpdatePreferences}>Update Preferences</button>
+
+          <p><strong>Assigned Room:</strong> {course.room || 'Not assigned'}</p>
+
+          <h3>Enrolled Students</h3>
+          <ul>
+            {students.map((s) => (
+              <li key={s._id}>
+                {s.name} ({s.email})
+              </li>
+            ))}
+          </ul>
         </>
       )}
-
-      <h3>Enrolled Students</h3>
-      <ul>
-        {students.map((s) => (
-          <li key={s._id}>
-            {s.name} ({s.email})
-          </li>
-        ))}
-      </ul>
 
       <DashboardButton />
     </div>

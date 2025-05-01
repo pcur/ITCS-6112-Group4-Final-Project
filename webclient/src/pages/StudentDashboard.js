@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getStudentEnrollments } from '../api/students';
+import { getStudentEnrollments, dropStudent } from '../api/students';
 
 function StudentDashboard() {
   const navigate = useNavigate();
@@ -14,6 +14,17 @@ function StudentDashboard() {
       setEnrolledCourses(res.data);
     } catch (err) {
       console.error("Error fetching enrollments:", err);
+    }
+  };
+
+  const handleDrop = async (courseId) => {
+    try {
+      await dropStudent(user._id, courseId);
+      alert('Dropped from course successfully.');
+      fetchEnrollments(); // refresh the list
+    } catch (err) {
+      console.error("Error dropping course:", err);
+      alert('Failed to drop course.');
     }
   };
 
@@ -39,6 +50,7 @@ function StudentDashboard() {
                 <li key={course._id}>
                   {course.name} ({course.capacity} students)
                   <button onClick={() => navigate(`/courses/${course._id}`)}>View Details</button>
+                  <button onClick={() => handleDrop(course._id)} style={{ marginLeft: '1rem' }}>Drop</button>
                 </li>
               ))}
             </ul>
