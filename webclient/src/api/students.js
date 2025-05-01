@@ -8,3 +8,5 @@ export const enrollStudent = (studentId, courseId) =>
   axios.post(`/students/${studentId}/enroll/${courseId}`);
 export const dropStudent = (studentId, courseId) =>
   axios.delete(`/students/${studentId}/drop/${courseId}`);
+export const getUsersByRole = (userRole) =>
+  axios.get(`/students/users/role/${userRole}`);

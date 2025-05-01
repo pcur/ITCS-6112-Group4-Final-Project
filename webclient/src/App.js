@@ -1,12 +1,12 @@
 import React from 'react';
-import AppRoutes from './routes';
-import TopBar from './components/TopBar'; // Import TopBar component
+import AppRoutes from './routes'; // Your routing component
+import TopBar from './components/topBar'; // Import the TopBar component
 
 function App() {
   return (
     <div>
-      <TopBar /> {/* Include TopBar at the top */}
-      <AppRoutes /> {/* Routes go here */}
+      <TopBar />  {/* Render the TopBar here */}
+      <AppRoutes />
     </div>
   );
 }

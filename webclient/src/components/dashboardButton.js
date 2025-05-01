@@ -1,4 +1,3 @@
-// components/DashboardButton.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -15,20 +14,29 @@ function DashboardButton() {
 
   return (
     <button
-        onClick={() => navigate(route)}
-        style={{
-        marginTop: '2rem',
-        padding: '0.5rem 1rem',
-        borderRadius: '8px',
-        backgroundColor: '#eee',
-        border: '1px solid #ccc',
-        cursor: 'pointer'
-    }}
+      onClick={() => navigate(route)}
+      style={styles.button}
+      onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
+      onMouseOut={(e) => e.target.style.textDecoration = 'none'}
     >
-        🔙 Back to Dashboard
+      {'←'} Back to Dashboard
     </button>
-
   );
 }
+
+const styles = {
+  button: {
+    padding: '0.5rem 1.5rem', // Increased vertical padding to match logout button
+    backgroundColor: '#333',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none', // Ensure text decoration is none by default
+  },
+};
 
 export default DashboardButton;
