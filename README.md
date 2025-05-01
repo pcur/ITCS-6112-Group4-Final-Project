@@ -28,16 +28,17 @@ npm start
 No config is needed, at the moment it will run the webclient on localhost:3000.
 
 ### Current features:
- - Basic user registration (currently, all users are considered students, but with admin view)
+ - Basic user registration
  - Room creation, deletion, and viewing
  - Course creation, deletion, and viewing/editing
  - Student management including enrollment details in courses
+ - Multi-role view with differing control levels
 
 ### WIP/TODO:
-- Automatic generation of assignments of courses
+- Better (dynamic) automatic generation of assignments of courses
+    - related bugfixes
 - Manual assignment of courses to rooms
+- Fix of professor course assignment bug 
 - Room resource management (desktop pcs, whiteboard, etc)
-- Semester/term management
-- User role integrations
-- Better UI
+- Manual deletion or editing of user account information by admin
 - Excel importing
