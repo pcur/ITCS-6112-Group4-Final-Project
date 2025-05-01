@@ -94,3 +94,22 @@ exports.dropStudentFromCourse = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// GET: all users of a specific role (student, admin, instructor)
+exports.getUsersByRole = async (req, res) => {
+  try {
+    const { role } = req.params;
+
+    // Ensure the role is valid (student, admin, instructor)
+    const validRoles = ['student', 'admin', 'instructor'];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ message: 'Invalid role provided' });
+    }
+
+    // Find all users with the specified role
+    const users = await User.find({ role });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

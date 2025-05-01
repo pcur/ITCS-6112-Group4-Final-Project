@@ -64,7 +64,6 @@ function StudentDetails() {
           </li>
         ))}
       </ul>
-      <DashboardButton />
     </div>
   );
 }

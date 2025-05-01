@@ -1,48 +1,46 @@
 import React, { useState } from 'react';
-import axios from '../api/axios'; // Import the custom axios instance
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../api/users'; // Assuming you have an API to create users
 
-const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+function AddUser() {
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError('');
-    setSuccess(false);
-
     try {
-      const response = await axios.post('/auth/register', {
-        name,
-        email,
-        password,
-      });
-
-      if (response.status === 201) {
-        setSuccess(true);
-        setTimeout(() => navigate('/login'), 2000); // Redirect to login after 2 seconds
-      }
+      await registerUser(userData); // Send the user data to the backend to create the user
+      navigate('/students'); // Redirect back to the users list
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      console.error('Error creating user:', err);
     }
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>Register</h1>
+      <h2>Add New User</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.inputGroup}>
           <label htmlFor="name" style={styles.label}>Name:</label>
           <input
             type="text"
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={userData.name}
+            onChange={handleChange}
             required
             style={styles.input}
           />
@@ -53,8 +51,9 @@ const Register = () => {
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={userData.email}
+            onChange={handleChange}
             required
             style={styles.input}
           />
@@ -65,25 +64,19 @@ const Register = () => {
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={userData.password}
+            onChange={handleChange}
             required
             style={styles.input}
           />
         </div>
 
-        {error && <p style={styles.error}>{error}</p>}
-        {success && <p style={styles.success}>Registration successful!</p>}
-
-        <button type="submit" style={styles.button}>Register</button>
+        <button type="submit" style={styles.button}>Create User</button>
       </form>
-
-      <p style={styles.registerLink}>
-        Already have an account? <a href="/login" style={styles.link}>Login here</a>
-      </p>
     </div>
   );
-};
+}
 
 const styles = {
   container: {
@@ -91,10 +84,6 @@ const styles = {
     maxWidth: '500px',
     margin: '0 auto',
     fontFamily: 'Arial, sans-serif',
-  },
-  heading: {
-    textAlign: 'center',
-    marginBottom: '20px',
   },
   form: {
     display: 'flex',
@@ -128,22 +117,6 @@ const styles = {
     width: '100%',
     boxSizing: 'border-box',
   },
-  error: {
-    color: 'red',
-    textAlign: 'center',
-  },
-  success: {
-    color: 'green',
-    textAlign: 'center',
-  },
-  registerLink: {
-    textAlign: 'center',
-    marginTop: '1rem',
-  },
-  link: {
-    color: '#4CAF50',
-    textDecoration: 'none',
-  },
 };
 
-export default Register;
+export default AddUser;

@@ -43,45 +43,100 @@ const Login = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '300px' }}>
-        <div>
-          <label htmlFor="email">Email:</label>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Login</h1>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label htmlFor="email" style={styles.label}>Email:</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: '100%', padding: '0.5rem' }}
+            style={styles.input}
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div style={styles.inputGroup}>
+          <label htmlFor="password" style={styles.label}>Password:</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '0.5rem' }}
+            style={styles.input}
           />
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={styles.error}>{error}</p>}
 
-        <button type="submit" style={{ padding: '0.5rem', background: '#333', color: 'white' }}>
-          Login
-        </button>
+        <button type="submit" style={styles.button}>Login</button>
       </form>
 
-      <p style={{ marginTop: '1rem' }}>
-        Don’t have an account? <a href="/register">Register here</a>
+      <p style={styles.registerLink}>
+        Don’t have an account? <a href="/register" style={styles.link}>Register here</a>
       </p>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    padding: '20px',
+    maxWidth: '500px',
+    margin: '0 auto',
+    fontFamily: 'Arial, sans-serif',
+  },
+  heading: {
+    textAlign: 'center',
+    marginBottom: '20px',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+  },
+  inputGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  label: {
+    fontSize: '16px',
+    marginBottom: '5px',
+  },
+  input: {
+    padding: '10px',
+    fontSize: '16px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    width: '100%',
+    boxSizing: 'border-box',
+  },
+  button: {
+    padding: '10px 20px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    width: '100%',
+    boxSizing: 'border-box',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+  },
+  registerLink: {
+    textAlign: 'center',
+    marginTop: '1rem',
+  },
+  link: {
+    color: '#4CAF50',
+    textDecoration: 'none',
+  },
 };
 
 export default Login;
