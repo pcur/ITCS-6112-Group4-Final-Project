@@ -18,6 +18,8 @@ If running correctly, should output a warning followed by
 ```
 Server connected to port 5000
 Connected to MongoDB
+
+#### NOTE: Admin and Instructor users will have to be seeded into the database, or created as a student and then manually edited within the collection.
 ```
 ## Installation and Running of Webclient Instance
 To install and run, navigate to "webclient" directory in cli and run:
